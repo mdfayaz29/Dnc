@@ -159,7 +159,7 @@ export default function EditSpot(props) {
         try {
             await UpdateSpotData({ data: olddict, new: newdict });
             handleClose();
-            toast.success('Spot updated successfully!', {
+            toast.success('Spot updated successflly!', {
                 position: toast.POSITION.TOP_RIGHT
             });
         } catch (error) {

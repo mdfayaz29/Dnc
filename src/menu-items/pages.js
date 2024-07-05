@@ -89,14 +89,6 @@ const pages = {
                     type: 'item',
                     url: '/gateways',
                     icon: icons.RouterSharpIcon
-                },
-                {
-                    // id: 'gateway',
-                    id: 'Gateway',
-                    title: 'Fayaz',
-                    type: 'item',
-                    url: '/Fayaz',
-                    icon: icons.RouterSharpIcon
                 }
             ]
         }

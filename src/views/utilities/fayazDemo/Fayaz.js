@@ -20,8 +20,10 @@ import PersonPinIcon from '@mui/icons-material/PersonPin';
 import TabList from '@mui/lab/TabList';
 import TabContext from '@mui/lab/TabContext';
 import TabPanel from '@mui/lab/TabPanel';
-import DataTable from '../fayazDemo/CustomizedTables';
-import HelperText from '../fayazDemo/HelperText';
+import DataTable from './userdata';
+import HelperText from './addfield';
+import PersonIcon from '@material-ui/icons/Person';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 export default function Fayaz() {
     const [currentTab, setCurrentTab] = React.useState('User');
@@ -58,8 +60,8 @@ export default function Fayaz() {
                 <TabContext value={value}>
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                         <TabList onChange={handleChange} aria-label="lab API tabs example">
-                            <Tab label="User" value="1" />
-                            <Tab label="Add User" value="2" />
+                            <Tab label="User" icon={<PersonIcon />} value="1" />
+                            <Tab label="Add User" icon={<AddCircleIcon />} value="2" />
                         </TabList>
                     </Box>
                     <TabPanel value="1">
