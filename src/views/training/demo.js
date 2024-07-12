@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -12,13 +12,12 @@ import TabContext from '@mui/lab/TabContext';
 import TabPanel from '@mui/lab/TabPanel';
 import PersonIcon from '@material-ui/icons/Person';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
-import UserData from './userdata';
-import HelperText from './addfield';
+import Download from './download';
+import Maps from './map';
 
-export default function Fayaz() {
-    const [currentTab, setCurrentTab] = React.useState('User');
+export default function Demo() {
+    const [currentTab, setCurrentTab] = React.useState('Data Download');
     const [value, setValue] = React.useState('1');
-
     const breadcrumbs = (
         <>
             {/* Customize your breadcrumbs here */}
@@ -29,36 +28,34 @@ export default function Fayaz() {
                     <HomeIcon fontSize="small" />
                 </RouterLink>
                 <Typography variant="body2" color="text.primary">
-                    Organization
+                    Training
                 </Typography>
                 <Typography variant="body2" color="text.primary">
-                    {currentTab} {/* Use the currentTab state variable */}
+                    {currentTab}
                 </Typography>
             </Breadcrumbs>
         </>
     );
-
     const handleChange = (event, newValue) => {
         setValue(newValue);
-        if (newValue === '1') setCurrentTab('User');
-        else if (newValue === '2') setCurrentTab('Add User');
+        if (newValue === '1') setCurrentTab('Data Download');
+        else if (newValue === '2') setCurrentTab('Map');
     };
-
     return (
-        <MainCard title="Fayaz" breadcrumbs={breadcrumbs}>
+        <MainCard title="Training" breadcrumbs={breadcrumbs}>
             <Box sx={{ width: '130%', typography: 'body1' }}>
                 <TabContext value={value}>
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                         <TabList onChange={handleChange} aria-label="lab API tabs example">
-                            <Tab label="User" icon={<PersonIcon />} value="1" />
-                            <Tab label="Add User" icon={<AddCircleIcon />} value="2" />
+                            <Tab label="Data Download" icon={<PersonIcon />} value="1" />
+                            <Tab label="Map" icon={<AddCircleIcon />} value="2" />
                         </TabList>
                     </Box>
                     <TabPanel value="1">
-                        <UserData />
+                        <Download />
                     </TabPanel>
                     <TabPanel value="2">
-                        <HelperText />
+                        <Maps />
                     </TabPanel>
                 </TabContext>
             </Box>

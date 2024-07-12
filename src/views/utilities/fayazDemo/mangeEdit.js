@@ -9,7 +9,7 @@ export default function EditSpotzz({ mydata }) {
         const { name, value } = e.target;
         setEditedData((prevData) => ({
             ...prevData,
-            [name]: value,
+            [name]: value
         }));
     };
 
@@ -20,7 +20,7 @@ export default function EditSpotzz({ mydata }) {
 
     return (
         <Dialog open={true} onClose={hcb}>
-            <DialogTitle>Edit Spot</DialogTitle>
+            <DialogTitle>Edit-</DialogTitle>
             <DialogContent>
                 <TextField
                     // eslint-disable-next-line jsx-a11y/no-autofocus
@@ -30,7 +30,6 @@ export default function EditSpotzz({ mydata }) {
                     name="firstName"
                     label="First Name"
                     type="text"
-                    fullWidth
                     value={editedData.firstName}
                     onChange={handleChange}
                 />
@@ -40,20 +39,10 @@ export default function EditSpotzz({ mydata }) {
                     name="lastName"
                     label="Last Name"
                     type="text"
-                    fullWidth
                     value={editedData.lastName}
                     onChange={handleChange}
                 />
-                <TextField
-                    margin="dense"
-                    id="age"
-                    name="age"
-                    label="Age"
-                    type="number"
-                    fullWidth
-                    value={editedData.age}
-                    onChange={handleChange}
-                />
+                <TextField margin="dense" id="age" name="age" label="Age" type="number" value={editedData.age} onChange={handleChange} />
             </DialogContent>
             <DialogActions>
                 <Button onClick={hcb}>Cancel</Button>

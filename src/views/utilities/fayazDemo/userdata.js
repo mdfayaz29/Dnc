@@ -1,34 +1,35 @@
 import React, { useState } from 'react';
-import { DataGrid, GridToolbar } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar, GridToolbarColumnsButton } from '@mui/x-data-grid';
 import { Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField } from '@mui/material';
 import DownloadIcon from '@mui/icons-material/Download';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
 import EditSpotzz from './mangeEdit';
 import CaptchaDialog from 'views/CaptchaDialog';
-
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/DeleteOutlined';
+import { GridToolbarContainer, GridToolbarFilterButton, GridToolbarDensitySelector } from '@mui/x-data-grid';
 const DNC_URL = 'your_delete_api_endpoint'; // Replace with your actual DELETE API endpoint
 
-export default function DataTable() {
+export default function UserData() {
     const initialRows = [
         { id: 1, lastName: 'Shankar', firstName: 'Athi', age: 35 },
         { id: 2, lastName: 'Lannister', firstName: 'Akash', age: 42 },
         { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
         { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-        { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-        { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
+        { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: 54 },
+        { id: 6, lastName: 'Melisandre', firstName: 'kumar', age: 150 },
         { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
         { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
         { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 }
     ];
 
     const [rows, setRows] = useState(initialRows);
+    console.log('Fayaz: ' + rows);
     const [csvFileName, setCsvFileName] = useState('');
     const [selectedRow, setSelectedRow] = useState(null);
     const [openDownloadDialog, setOpenDownloadDialog] = useState(false);
     const [openCaptchaDialog, setOpenCaptchaDialog] = useState(false);
-    const [selectedUserIdForDeletion, setSelectedUserIdForDeletion] = useState(null);
-    const [id, setId] = React.useState();
+
+    const [id, setId] = useState();
 
     function deleteUser(id) {
         return new Promise(async function (resolve, reject) {
@@ -75,38 +76,32 @@ export default function DataTable() {
         {
             field: 'actions',
             headerName: 'Actions',
-            width: 150,
+            width: 120,
             sortable: false,
             renderCell: (params) => (
                 <div>
-                    <Button variant="text" size="small" startIcon={<EditIcon />} onClick={() => handleEditClick(params.row)}>
-                        Edit
-                    </Button>
-                    <Button variant="text" size="small" startIcon={<DeleteIcon />} onClick={() => handleDeleteUser(params.row.id)}>
-                        Delete
-                    </Button>
+                    <Button variant="text" size="small" startIcon={<EditIcon />} onClick={() => handleEditClick(params.row)} />
+                    <Button variant="text" size="small" startIcon={<DeleteIcon />} onClick={() => handleDeleteUser(params.row.id)} />
                 </div>
             )
         }
     ];
-
+    const handleEditClick = (selectedRow) => {
+        setSelectedRow(selectedRow);
+    };
     const handleDeleteUser = (id) => {
-        handleCaptchaDialogConfirm(id);
+        setId(id);
         setOpenCaptchaDialog(true);
     };
 
-    const handleCaptchaDialogConfirm = (id) => {
+    const handleCaptchaDialogConfirm = () => {
         setOpenCaptchaDialog(false);
+        handleCaptchaDialogConfirm1(id);
+    };
+
+    const handleCaptchaDialogConfirm1 = (id) => {
         const updatedRows = rows.filter((row) => row.id !== id);
         setRows(updatedRows);
-    };
-
-    const handleCloseCaptchaDialog = () => {
-        setOpenCaptchaDialog(false);
-    };
-
-    const handleEditClick = (selectedRow) => {
-        setSelectedRow(selectedRow);
     };
 
     const handleCsvFileNameChange = (event) => {
@@ -141,31 +136,25 @@ export default function DataTable() {
 
     function CustomToolbar() {
         return (
-            <GridToolbar
-                toolbarButtons={[
-                    <Button
-                        key="export-csv"
-                        style={{ fontSize: '13px' }}
-                        variant="text"
-                        startIcon={<DownloadIcon />}
-                        onClick={handleOpenDownloadDialog}
-                    >
-                        Export CSV
-                    </Button>
-                ]}
-            />
+            <GridToolbarContainer>
+                <GridToolbarColumnsButton />
+                <GridToolbarFilterButton />
+                <GridToolbarDensitySelector />
+                <Button style={{ fontSize: '13px' }} variant="text" startIcon={<DownloadIcon />} onClick={handleOpenDownloadDialog}>
+                    Export CSV
+                </Button>
+            </GridToolbarContainer>
         );
     }
 
     return (
-        <div style={{ height: 400, width: '100%' }}>
+        <div style={{ height: 480, width: '75%' }}>
             <DataGrid
                 rows={rows}
                 columns={columns}
                 pageSize={10}
-                rowsPerPageOptions={[10]}
+                rowsPerPageOptions={[12]}
                 checkboxSelection
-                density="compact"
                 components={{
                     Toolbar: CustomToolbar
                 }}
@@ -191,18 +180,6 @@ export default function DataTable() {
                     <Button onClick={handleCloseDownloadDialog}>Cancel</Button>
                     <Button onClick={handleDownloadCsv} color="primary">
                         Download
-                    </Button>
-                </DialogActions>
-            </Dialog>
-            <Dialog open={openCaptchaDialog} onClose={handleCloseCaptchaDialog}>
-                <DialogTitle>Captcha Verification</DialogTitle>
-                <DialogContent>
-                    <TextField id="captcha-input" label="Enter Captcha" fullWidth />
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleCloseCaptchaDialog}>Cancel</Button>
-                    <Button onClick={handleCaptchaDialogConfirm} color="primary">
-                        Confirm
                     </Button>
                 </DialogActions>
             </Dialog>

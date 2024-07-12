@@ -29,6 +29,8 @@ import Breadcrumbs from '@mui/material/Breadcrumbs';
 import { Link } from 'react-router-dom';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import HomeIcon from '@mui/icons-material/Home';
+import TableConfig from './table';
+import Button from '@mui/material/Button';
 
 /*
 | TabPanel for a tab-based interface. It receives properties (props) such as 
@@ -134,7 +136,7 @@ export default function Downlink() {
 
                         {/* {/ Add Gateway /} */}
                         <TabPanel value={value} index={1}>
-                            <ConfigApi iudata={{ cbf: setValue }} />
+                            <TableConfig iudata={{ cbf: setValue }} />
                         </TabPanel>
 
                         {/* {/ Add-Remove Gateway /} */}

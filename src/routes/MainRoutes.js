@@ -28,6 +28,8 @@ const DataDnLoad = Loadable(lazy(() => import('views/others/download/download'))
 const DownLink = Loadable(lazy(() => import('views/others/downlink/downlink')));
 const Subscription = Loadable(lazy(() => import('views/others/subscription/subscription')));
 const BrixTap = Loadable(lazy(() => import('views/others/brixtap/brixtap')));
+// Training
+const Demo = Loadable(lazy(() => import('views/training/demo')));
 
 // ==============================|| MAIN ROUTING ||============================== //
 
@@ -50,6 +52,11 @@ const MainRoutes = {
 addOrgRoutes();
 addConfigRoutes();
 addSelectiveRoutes();
+addTraining();
+
+function addTraining() {
+    MainRoutes.children.push({ path: 'training', children: [{ path: 'demo', element: <Demo /> }] });
+}
 
 function addOrgRoutes() {
     MainRoutes.children.push({ path: '/', element: <DashboardDefault /> });
